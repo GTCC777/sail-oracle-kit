@@ -1,0 +1,10 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.26"
+optimizer = true
+optimizer_runs = 10000
+
+[rpc_endpoints]
+base = "${BASE_RPC_URL}"
