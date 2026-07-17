@@ -32,6 +32,20 @@ Sail's docs are explicit that the oracle is **operator-supplied** and that "an a
 - For stricter setups: deploy, configure, then `transferOwnership` to the Permission Signer or a multisig/timelock, freezing the registry from the manager side.
 - Manipulation resistance is inherited from Chainlink; ERC-4626 share prices use `convertToAssets`, which for honest vaults reflects exchange rate, not spot-manipulable pool state. Do not register vaults whose `convertToAssets` can be flash-manipulated.
 
+## Live deployment — Base mainnet (chainId 8453)
+
+Deployed 2026-07-17, Sourcify-verified, configured with the canonical Chainlink Base feed set (ETH, USDC, cbBTC, cbETH, EURC), the aBasUSDC alias, and four MetaMorpho USDC vaults (off-mandate reads only — see the gas exclusion above):
+
+| Contract | Address |
+|---|---|
+| `PriceRouter` | `0x63C3821aC8F06E9eaCB03F867206f44b1dafFa44` |
+| `SailOracle` | `0x160D80840bDA05ebff57EA9d9E6124D5738533ef` |
+| `SailCollateralOracle` | `0xb85815a5a7287d3934F36D499130502bbDB1a80d` |
+
+Live sanity read (try it): `cast call 0x160D…33ef "getPrice(address,address)(uint256,uint8,uint256)" <WETH> <USDC> --rpc-url https://mainnet.base.org`
+
+These instances are **operator-owned by the deployer** — treat them as a working demo of the kit. For production mandates, deploy your own instance so *you* control the feed registry (or ask us to transfer a configured instance: info@theaslangroupllc.com).
+
 ## Usage
 
 ```bash
